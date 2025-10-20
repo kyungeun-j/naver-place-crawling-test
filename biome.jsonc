@@ -1,0 +1,153 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
+	"files": {
+		"includes": [
+			"**",
+			"!**/pnpm-lock.yaml",
+			"!**/lib/db/migrations",
+			"!**/node_modules",
+			"!**/.next",
+			"!**/.husky",
+			"!**/.vscode",
+			"!**/public",
+			"!**/components/ui",
+			"!**/types/generated.d.ts",
+			"!**/graphql/generated.tsx",
+			"!**/packages/**/*",
+			"!**/terraform"
+		]
+	},
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "tab",
+		"indentWidth": 2,
+		"lineWidth": 80
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"style": {
+				"useArrayLiterals": "warn", // new Array() 대신 배열 리터럴 [] 사용 권장
+				"useFragmentSyntax": "warn", // <React.Fragment> 대신 <>...</> 사용 권장
+				"noYodaExpression": "warn", // "Yoda" 조건문 (if ("red" === color)) 금지
+				"useDefaultParameterLast": "warn", // 기본값 파라미터를 마지막에 위치
+				"useExponentiationOperator": "warn", // 지수 연산자 (**) 사용 권장
+				"noUnusedTemplateLiteral": "warn", // 사용되지 않는 템플릿 리터럴 금지
+				"noUselessElse": "warn", // 불필요한 else 문 금지
+				"useLiteralEnumMembers": "error", // Enum 멤버에 리터럴 값 사용 강제
+				"useNodejsImportProtocol": "error", // Node.js 내장 모듈 import 시 'node:' 프로토콜 사용 강제
+				"useAsConstAssertion": "error", // 리터럴 타입에 'as const' 단언 사용 권장
+				"useEnumInitializers": "error", // 모든 Enum 멤버가 초기화 값을 갖도록 강제
+				"useSelfClosingElements": "error", // 자식 없는 JSX 요소를 셀프 클로징 태그로 강제
+				"useConst": "error", // 재할당되지 않는 변수에 const 사용 강제
+				"useSingleVarDeclarator": "error", // 변수마다 개별 선언 강제 (let a, b; 금지)
+				"useNumberNamespace": "error", // 전역 isNaN 대신 Number.isNaN 사용 강제
+				"noInferrableTypes": "error", // 불필요한 타입 지정 금지 (타입 추론 가능 시)
+				"useTemplate": "error", // 문자열 연결에 + 대신 템플릿 리터럴 사용 강제
+				"noParameterAssign": "error", // 함수 파라미터 재할당 금지
+				"noNonNullAssertion": "off", // non-null 단언(!) 사용 금지
+				"useImportType": "error", // 타입 import 시 'import type' 사용 강제
+				"useExportType": "error", // 타입 export 시 'export type' 사용 강제
+				"useShorthandFunctionType": "error"
+			},
+			"a11y": {
+				"useHtmlLang": "warn", // <html> 요소에 유효한 lang 속성을 설정하도록 강제
+				"noHeaderScope": "warn", // <th> 요소에 scope 속성 사용 금지 (HTML5에서 폐지됨)
+				"useValidAutocomplete": "error", // autocomplete 속성에 유효한 값 사용 강제
+				"useValidAriaRole": {
+					// 유효한 ARIA role 속성 사용 강제
+					"level": "warn",
+					"options": {
+						"ignoreNonDom": false,
+						"allowInvalidRoles": ["none", "text"]
+					}
+				},
+				"noStaticElementInteractions": "warn", // 정적 HTML 요소에 이벤트 핸들러 사용 금지 (접근성)
+				"useSemanticElements": "warn", // <div> 대신 시맨틱 HTML 요소 사용 권장
+				"noSvgWithoutTitle": "warn", // 접근성을 위해 <svg>에 <title> 요소 포함 권장
+				"useMediaCaption": "warn", // <video> 또는 <audio> 요소에 캡션 제공 강제
+				"noAutofocus": "warn", // autofocus 속성 사용 금지 (접근성 문제 유발 가능)
+				"useFocusableInteractive": "warn", // 포커스 가능한 요소는 상호작용 가능해야 함
+				"useAriaPropsForRole": "warn", // 역할(role)에 맞지 않는 aria-* 속성 사용 금지
+				"useKeyWithClickEvents": "warn" // onClick 이벤트에 키보드 이벤트 핸들러 동반 권장
+			},
+			"correctness": {
+				"noUnusedVariables": "off", // 사용되지 않는 변수 경고 (**주의 : 활성화하면 지옥이 펼쳐집니다**)
+				"noUnusedImports": "warn", // 사용되지 않는 import 문 경고
+				"noInvalidBuiltinInstantiation": {
+					// new Object(), new Symbol() 등 잘못된 내장 객체 생성 금지
+					"level": "warn"
+				},
+				"useJsxKeyInIterable": "error", // JSX 배열/반복문에서 key prop 사용 강제
+				"useExhaustiveDependencies": "warn" // React Hooks 의존성 배열이 완전한지 확인 (현재 꺼짐)
+			},
+			"nursery": {
+				"useSortedClasses": {
+					// cn, clsx 등에서 클래스 이름을 정렬하도록 강제
+					"level": "warn",
+					"options": {
+						"attributes": ["classList"],
+						"functions": ["clsx", "cva", "cn"]
+					}
+				}
+			},
+			"complexity": {
+				"noArguments": "error", // arguments 객체 대신 rest 파라미터(...args) 사용 강제
+				"noUselessStringConcat": "warn", // 불필요한 문자열 연결 금지
+				"useNumericLiterals": "error", // 0b, 0o 같은 최신 숫자 리터럴 표기법 사용 권장
+				"noCommaOperator": "error", // 쉼표 연산자(,) 사용 금지
+				"noForEach": "off", // forEach 대신 for...of 루프 사용 권장
+				"noUselessSwitchCase": "off", // switch 문에서 불필요한 case 금지
+				"noUselessThisAlias": "off" // 불필요한 'this'의 별칭(alias) 생성 금지
+			},
+			"suspicious": {
+				"noDocumentImportInPage": "warn", // Next.js: 페이지에서 next/document import 금지
+				"noDuplicateElseIf": "error", // 0b, 0o 같은 최신 숫자 리터럴 표기법 사용 권장
+				"noHeadImportInDocument": "warn", // Next.js: _document.js에서 next/head import 금지
+				"noIrregularWhitespace": "error", // 불규칙한 공백 문자 금지
+				"noExplicitAny": "off" // 'any' 타입의 명시적 사용 금지
+			},
+			"security": {
+				"noBlankTarget": "error", // target=\"_blank\" 사용 시 rel=\"noopener noreferrer\" 강제 (보안)
+				"noDangerouslySetInnerHtml": "error" // XSS 공격에 취약한 dangerouslySetInnerHTML 사용 금지
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			// JavaScript/TypeScript 파일 포매팅 설정
+			"quoteStyle": "double", // 문자열에 큰따옴표(") 사용
+			"trailingCommas": "all", // 가능한 모든 곳에 후행 쉼표 사용
+			"semicolons": "always", // 문장 끝에 항상 세미콜론 붙임
+			"arrowParentheses": "always" // 화살표 함수 파라미터에 항상 괄호 사용
+		}
+	},
+	"json": {
+		"formatter": {
+			// JSON 파일 포매팅 설정
+			"enabled": true,
+			"trailingCommas": "none" // 후행 쉼표 사용 안 함
+		},
+		"parser": {
+			// JSON 파서 설정
+			"allowComments": true, // .jsonc 파일 등에서 주석 허용
+			"allowTrailingCommas": false // 파싱 시 후행 쉼표 허용 안 함
+		}
+	},
+	"css": {
+		"formatter": { "enabled": false }, // CSS 포매터 비활성화
+		"linter": { "enabled": false } // CSS 린터 비활성화
+	},
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on" // "import 정렬" 액션 활성화
+			}
+		}
+	}
+}
